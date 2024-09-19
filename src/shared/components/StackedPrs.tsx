@@ -7,6 +7,7 @@ import {
 } from "@primer/octicons-react";
 import {BranchName, Link, Stack, Text, Token} from "@primer/react";
 import React, {ReactElement} from "react";
+import {PullRequestLink} from "./PullRequestLink";
 
 interface StackedPR {
   id: number;
@@ -64,19 +65,13 @@ export function StackedPrs(props: StackedPrsProps) {
             background: "transparent",
             fontWeight: "normal",
             maxWidth: "900px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             p: "5px var(--control-medium-paddingInline-normal)",
-            fontSize: 0,
           }}
           text={
             <>
-              Stacks on:{" "}
-              <Link href={url} muted sx={{fontWeight: "bold"}}>
-                {title}
-              </Link>{" "}
-              into <BranchName as="span">{base.ref}</BranchName>
+              Stacks on <PullRequestLink url={url} title={title} /> into{" "}
+              <BranchName as="span">{base.ref}</BranchName>
             </>
           }
         />

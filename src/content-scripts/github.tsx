@@ -45,8 +45,6 @@ function getBaseRef() {
     head: `${owner}:${baseRef}`,
   });
 
-  belowPrs.data[0].title
-
   const appContainer = document.createElement("div");
   getRequiredElement(".gh-header-meta", HTMLDivElement).insertAdjacentElement(
     "afterend",

@@ -12,19 +12,21 @@ async function getDefaultBranch(
 
   const repository = await github.repos.get({owner, repo});
   const actual = repository.data.default_branch;
-  await cacheDefaultBranch(owner, repo, actual);
+  cacheDefaultBranch(owner, repo, actual);
   return actual;
+}
+
+function getBaseRef() {
+  return document.querySelector(".base-ref")?.textContent;
 }
 
 (async () => {
   const pullRequest = parsePullPath();
-  console.log(pullRequest);
   if (!pullRequest) return;
 
   const {owner, repo} = pullRequest;
 
-  const baseRef = document.querySelector(".base-ref")?.textContent;
-  console.log(baseRef);
+  const baseRef = getBaseRef();
   if (!baseRef) return;
 
   const github = await githubClient();

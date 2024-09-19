@@ -7,8 +7,14 @@ interface PullRequestLinkProps {
 }
 
 export function PullRequestLink({title, url}: PullRequestLinkProps) {
- return (
-    <Link href={url} sx={{fontWeight: "bold"}} className="markdown-title">
+  return (
+    <Link
+      href={url}
+      sx={{fontWeight: "bold"}}
+      className="markdown-title"
+      data-hovercard-type="pull_request"
+      data-hovercard-url={`${url}/hovercard`}
+    >
       {title
         .split("`")
         .map((text, index, arr) =>

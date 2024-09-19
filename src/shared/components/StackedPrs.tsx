@@ -12,7 +12,7 @@ import {PullRequestLink} from "./PullRequestLink";
 interface StackedPR {
   id: number;
   title: string;
-  url: string;
+  html_url: string;
   state: string;
   number: number;
   base: {
@@ -56,7 +56,7 @@ const StateIcon: Record<string, React.ElementType> = {
 export function StackedPrs(props: StackedPrsProps) {
   return (
     <Stack direction="vertical">
-      {props.prs.map(({id, title, url, base, state}) => (
+      {props.prs.map(({id, title, html_url: url, base, state}) => (
         <Token
           key={id}
           size="xlarge"

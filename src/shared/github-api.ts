@@ -2,7 +2,9 @@ import {Octokit} from "octokit";
 import type {Api} from "@octokit/plugin-rest-endpoint-methods";
 import {getGitHubPat} from "./options";
 
-export async function githubClient(): Promise<Api["rest"]> {
+export type GitHubRestClient = Api["rest"];
+
+export async function githubClient(): Promise<GitHubRestClient> {
   const auth = (await getGitHubPat()) ?? undefined;
 
   return new Octokit({

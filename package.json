@@ -12,7 +12,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "webextension-polyfill": "^0.12.0"
+    "webextension-polyfill": "^0.12.0",
+    "octokit": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",

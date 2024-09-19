@@ -1,4 +1,3 @@
-import {brandGitHubPat} from "../shared/github-pat";
 import {getGitHubPat, setGitHubPat} from "../shared/options";
 import {getRequiredElement, sleep} from "../shared/utils";
 
@@ -20,7 +19,7 @@ async function onSubmit(event: SubmitEvent) {
 
   try {
     const pat = patInput.value;
-    await setGitHubPat(brandGitHubPat(pat));
+    await setGitHubPat(pat);
 
     status.textContent = "Options saved.";
     status.classList.add("success");

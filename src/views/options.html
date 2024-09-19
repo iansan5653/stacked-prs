@@ -21,6 +21,7 @@
 
     input {
       display: block;
+      width: 100%;
     }
   </style>
 </head>
@@ -28,12 +29,11 @@
 <body>
   <form id="options-form">
     <label for="pat">GitHub PAT</label>
-    <input id="pat" name="pat" placeholder="github_pat_123_XYZ" disabled pattern="github_pat_.*" />
+    <input id="pat" name="pat" placeholder="github_pat_*** or ghp_***" disabled pattern="(github_pat|ghp)_.*" />
 
     <p id="pat-description">
-      For this extension to work in private repositories, a personal access token must be provided. A "fine-grained"
-      access token with "Access: read-only" to the "Pull requests" permission for all repositories is ideal. <a
-        href="https://github.com/settings/personal-access-tokens/new">Generate one at github.com.</a>
+      For this extension to work in private repositories, a personal access token with access to all repositories must
+      be provided.</a>
     </p>
 
     <button type="submit">Save</button>

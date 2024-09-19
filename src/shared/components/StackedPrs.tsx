@@ -1,15 +1,86 @@
-import React from "react";
+import {
+  GitMergeIcon,
+  GitMergeQueueIcon,
+  GitPullRequestClosedIcon,
+  GitPullRequestDraftIcon,
+  GitPullRequestIcon,
+} from "@primer/octicons-react";
+import {BranchName, Link, Stack, Text, Token} from "@primer/react";
+import React, {ReactElement} from "react";
+
+interface StackedPR {
+  id: number;
+  title: string;
+  url: string;
+  state: string;
+  number: number;
+  base: {
+    label: string;
+    ref: string;
+  };
+}
 
 interface StackedPrsProps {
-  prs: string[];
+  prs: StackedPR[];
 }
+
+const StateIcon: Record<string, React.ElementType> = {
+  open: () => (
+    <span style={{color: "var(--fgColor-open)"}}>
+      <GitPullRequestIcon />
+    </span>
+  ),
+  closed: () => (
+    <span style={{color: "var(--fgColor-closed)"}}>
+      <GitPullRequestClosedIcon />
+    </span>
+  ),
+  draft: () => (
+    <span style={{color: "var(--fgColor-neutral)"}}>
+      <GitPullRequestDraftIcon />
+    </span>
+  ),
+  merged: () => (
+    <span style={{color: "var(--fgColor-done)"}}>
+      <GitMergeIcon />
+    </span>
+  ),
+  queued: () => (
+    <span style={{color: "var(--fgColor-attention)"}}>
+      <GitMergeQueueIcon />
+    </span>
+  ),
+};
 
 export function StackedPrs(props: StackedPrsProps) {
   return (
-    <ul>
-      {props.prs.map((name) => (
-        <ul key={name}>{name}</ul>
+    <Stack direction="vertical">
+      {props.prs.map(({id, title, url, base, state}) => (
+        <Token
+          key={id}
+          size="xlarge"
+          leadingVisual={StateIcon[state] ?? GitPullRequestIcon}
+          sx={{
+            background: "transparent",
+            fontWeight: "normal",
+            maxWidth: "900px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            p: "5px var(--control-medium-paddingInline-normal)",
+            fontSize: 0,
+          }}
+          text={
+            <>
+              Stacks on:{" "}
+              <Link href={url} muted sx={{fontWeight: "bold"}}>
+                {title}
+              </Link>{" "}
+              into <BranchName as="span">{base.ref}</BranchName>
+            </>
+          }
+        />
       ))}
-    </ul>
+    </Stack>
   );
 }

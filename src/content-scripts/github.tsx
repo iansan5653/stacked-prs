@@ -5,6 +5,7 @@ import {createRoot} from "react-dom/client";
 import {getRequiredElement} from "../shared/utils";
 import {StackedPrs} from "../shared/components/StackedPrs";
 import React from "react";
+import {ThemeProvider} from "@primer/react";
 
 async function getDefaultBranch(
   github: GitHubRestClient,
@@ -44,6 +45,8 @@ function getBaseRef() {
     head: `${owner}:${baseRef}`,
   });
 
+  belowPrs.data[0].title
+
   const appContainer = document.createElement("div");
   getRequiredElement(".gh-header-meta", HTMLDivElement).insertAdjacentElement(
     "afterend",
@@ -51,6 +54,8 @@ function getBaseRef() {
   );
 
   createRoot(appContainer).render(
-    <StackedPrs prs={belowPrs.data.map((pr) => pr.title)} />
+    <ThemeProvider>
+      <StackedPrs prs={belowPrs.data} />
+    </ThemeProvider>
   );
 })();

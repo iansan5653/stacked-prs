@@ -23,7 +23,7 @@ module.exports = /** @type {webpack.Configuration[]} */ ([
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.[jt]sx?$/,
           exclude: /node_modules/,
           use: {
             loader: "babel-loader",
@@ -65,7 +65,7 @@ module.exports = /** @type {webpack.Configuration[]} */ ([
         path: false,
         util: false,
       },
-      extensions: [".tsx", ".ts"],
+      extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
     mode: "development",
   },

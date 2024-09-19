@@ -21,18 +21,29 @@ async function getDefaultBranch(
   return actual;
 }
 
-function getBaseRef() {
-  return document.querySelector(".base-ref")?.textContent;
-}
-
 (async () => {
   const pullRequest = parsePullPath();
   if (!pullRequest) return;
 
   const {owner, repo} = pullRequest;
 
-  const baseRef = getBaseRef();
-  if (!baseRef) return;
+  const baseRefElement = document.querySelector(".base-ref");
+  const baseRef = baseRefElement?.textContent;
+  if (!baseRefElement || !baseRef) return;
+
+  const headRefElement = document.querySelector(".head-ref");
+  const headRef = headRefElement?.textContent;
+  const headRefCopy = document.querySelector<HTMLElement>(
+    `clipboard-copy[value="${headRef}"]`
+  );
+
+  const baseRefCopy = headRefCopy?.cloneNode(true) as typeof headRefCopy;
+  baseRefCopy?.setAttribute("value", baseRef);
+  console.log(baseRefElement, baseRefCopy);
+  if (baseRefCopy) {
+    baseRefElement.insertAdjacentElement("afterend", baseRefCopy);
+    baseRefElement.insertAdjacentText("afterend", " ");
+  }
 
   const github = await githubClient();
   const defaultBranch = await getDefaultBranch(github, owner, repo);
@@ -45,7 +56,7 @@ function getBaseRef() {
     head: `${owner}:${baseRef}`,
   });
 
-  belowPrs.data[0]?.html_url
+  belowPrs.data[0]?.html_url;
 
   const appContainer = document.createElement("div");
   getRequiredElement(".gh-header-meta", HTMLDivElement).insertAdjacentElement(

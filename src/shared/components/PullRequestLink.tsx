@@ -15,17 +15,17 @@ export function PullRequestLink({title, url}: PullRequestLinkProps) {
       data-hovercard-type="pull_request"
       data-hovercard-url={`${url}/hovercard`}
     >
-      {title
-        .split("`")
-        .map((text, index, arr) =>
-          index % 2 === 0 ? (
+      {title.split("`").map((text, index, arr) => (
+        <React.Fragment key={index}>
+          {index % 2 === 0 ? (
             text
           ) : index === arr.length - 1 ? (
             <>`{text}</>
           ) : (
             <code>{text}</code>
-          )
-        )}
+          )}
+        </React.Fragment>
+      ))}
     </Link>
   );
 }

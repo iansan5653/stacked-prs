@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./build",
     "noImplicitAny": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -16,7 +15,7 @@
       ]
     }
   },
-  "files": [
-    "src/content-script.ts"
+  "include": [
+    "src/**/*"
   ]
 }

@@ -6,11 +6,18 @@ const webpack = require("webpack");
 const {name} = require("./manifest.json");
 const safeName = name.replace(/\s/g, "_");
 
+const CopyPlugin = require("copy-webpack-plugin");
+
 const nodeModulePrefixRe = /^node:/u;
 
-module.exports = [
+const OUT_DIR = "dist";
+
+module.exports = /** @type {webpack.Configuration[]} */ ([
   {
-    entry: "./src/content-script.ts",
+    entry: {
+      ["content-scripts/github"]: "./src/content-scripts/github.ts",
+      ["views/options"]: "./src/views/options.ts",
+    },
     devtool: false,
     externals: {},
     module: {
@@ -29,7 +36,7 @@ module.exports = [
     },
     name: safeName,
     output: {
-      filename: "dist/content-script.js",
+      filename: `${OUT_DIR}/[id].js`,
       library: {
         name: safeName.replace(/(-\w)/g, (m) => m.slice(1).toUpperCase()),
         type: "var",
@@ -44,6 +51,10 @@ module.exports = [
           resource.request = module;
         }
       ),
+      new CopyPlugin({
+        // copy HTML files
+        patterns: [{from: "src/views/*.html", to: `${OUT_DIR}/views/[name][ext]`}],
+      }),
     ],
     resolve: {
       fallback: {
@@ -56,4 +67,4 @@ module.exports = [
     },
     mode: "development",
   },
-];
+]);

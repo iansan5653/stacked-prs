@@ -13,7 +13,8 @@
       "*": [
         "./@types/*"
       ]
-    }
+    },
+    "jsx": "react"
   },
   "include": [
     "src/**/*"

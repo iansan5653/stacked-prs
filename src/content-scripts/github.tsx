@@ -1,6 +1,10 @@
 import {cacheDefaultBranch, getCachedDefaultBranch} from "../shared/cache";
 import {githubClient, GitHubRestClient} from "../shared/github-api";
 import {parsePullPath} from "../shared/parse-pull-path";
+import {createRoot} from "react-dom/client";
+import {getRequiredElement} from "../shared/utils";
+import {StackedPrs} from "../shared/components/StackedPrs";
+import React from "react";
 
 async function getDefaultBranch(
   github: GitHubRestClient,
@@ -40,5 +44,13 @@ function getBaseRef() {
     head: `${owner}:${baseRef}`,
   });
 
-  console.log(belowPrs.data.map((pr) => pr.title));
+  const appContainer = document.createElement("div");
+  getRequiredElement(".gh-header-meta", HTMLDivElement).insertAdjacentElement(
+    "afterend",
+    appContainer
+  );
+
+  createRoot(appContainer).render(
+    <StackedPrs prs={belowPrs.data.map((pr) => pr.title)} />
+  );
 })();

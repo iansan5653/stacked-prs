@@ -15,7 +15,7 @@ const OUT_DIR = "dist";
 module.exports = /** @type {webpack.Configuration[]} */ ([
   {
     entry: {
-      ["content-scripts/github"]: "./src/content-scripts/github.ts",
+      ["content-scripts/github"]: "./src/content-scripts/github.tsx",
       ["views/options"]: "./src/views/options.ts",
     },
     devtool: false,
@@ -23,12 +23,12 @@ module.exports = /** @type {webpack.Configuration[]} */ ([
     module: {
       rules: [
         {
-          test: /\.ts$/,
+          test: /\.tsx?$/,
           exclude: /node_modules/,
           use: {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-typescript"],
+              presets: ["@babel/preset-react", "@babel/preset-typescript"],
             },
           },
         },
@@ -53,7 +53,9 @@ module.exports = /** @type {webpack.Configuration[]} */ ([
       ),
       new CopyPlugin({
         // copy HTML files
-        patterns: [{from: "src/views/*.html", to: `${OUT_DIR}/views/[name][ext]`}],
+        patterns: [
+          {from: "src/views/*.html", to: `${OUT_DIR}/views/[name][ext]`},
+        ],
       }),
     ],
     resolve: {
@@ -63,7 +65,7 @@ module.exports = /** @type {webpack.Configuration[]} */ ([
         path: false,
         util: false,
       },
-      extensions: [".tsx", ".ts", ".js"],
+      extensions: [".tsx", ".ts"],
     },
     mode: "development",
   },

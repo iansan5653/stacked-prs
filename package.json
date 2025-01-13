@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "octokit": "^4.0.2",
+    "octokit": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "webextension-polyfill": "^0.12.0",
